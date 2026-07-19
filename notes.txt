@@ -1,0 +1,2 @@
+Session 1: Python Basics
+Session 2: Django Basics
