@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: Arial, Helvetica, sans-serif; background:#f1f3f6; }
+
+  /* ---------- HEADER ---------- */
+  .header {
+    background:#2874f0;
+    display:flex;
+    align-items:center;
+    padding:8px 40px;
+    gap:24px;
+  }
+  .logo-block { display:flex; flex-direction:column; line-height:1; cursor:pointer; }
+  .logo-block .brand {
+    font-style:italic;
+    font-weight:700;
+    font-size:22px;
+    color:#fff;
+  }
+  .logo-block .tagline {
+    font-style:italic;
+    font-size:11px;
+    color:#f5f5f5;
+    display:flex;
+    align-items:center;
+    gap:3px;
+  }
+  .tagline .plus { color:#ffe500; font-weight:700; }
+
+  .search-box {
+    flex:1;
+    display:flex;
+    background:#fff;
+    border-radius:2px;
+    overflow:hidden;
+    max-width:640px;
+  }
+  .search-box input {
+    flex:1;
+    border:none;
+    outline:none;
+    padding:10px 14px;
+    font-size:14px;
+  }
+  .search-box button {
+    background:#fff;
+    border:none;
+    padding:0 16px;
+    cursor:pointer;
+    color:#2874f0;
+    font-size:18px;
+  }
+
+  .nav-right {
+    display:flex;
+    align-items:center;
+    gap:36px;
+    margin-left:auto;
+  }
+  .login-btn {
+    background:#fff;
+    color:#2874f0;
+    font-weight:600;
+    padding:6px 40px;
+    border-radius:2px;
+    border:none;
+    cursor:pointer;
+    font-size:15px;
+  }
+  .nav-link {
+    color:#fff;
+    font-weight:600;
+    font-size:14px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:4px;
+    cursor:pointer;
+  }
+  .cart-link { display:flex; align-items:center; gap:6px; }
+
+  /* ---------- CATEGORY BAR ---------- */
+  .category-bar {
+    background:#fff;
+    display:flex;
+    justify-content:center;
+    gap:56px;
+    padding:14px 0;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .category-bar a {
+    color:#212121;
+    font-weight:600;
+    font-size:14px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .caret { font-size:10px; color:#878787; }
+
+  /* ---------- LOGIN MODAL ---------- */
+  .login-wrapper {
+    display:flex;
+    justify-content:center;
+    margin:60px auto;
+  }
+  .login-card {
+    display:flex;
+    width:750px;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.15);
+  }
+  .login-left {
+    background:#2874f0;
+    color:#fff;
+    width:280px;
+    padding:44px 32px;
+    position:relative;
+    overflow:hidden;
+  }
+  .login-left h2 {
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:16px;
+  }
+  .login-left p {
+    font-size:16px;
+    color:#ebedff;
+    line-height:1.5;
+  }
+  .login-illustration {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    padding:30px;
+  }
+
+  .login-right {
+    flex:1;
+    padding:44px 35px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+  .login-right input[type="text"] {
+    border:none;
+    border-bottom:1px solid #e0e0e0;
+    outline:none;
+    padding:8px 2px;
+    font-size:15px;
+    width:100%;
+    color:#212121;
+  }
+  .login-right input::placeholder { color:#a3a3a3; }
+  .login-right input:focus { border-bottom:1px solid #2874f0; }
+
+  .terms {
+    font-size:12px;
+    color:#878787;
+    margin-top:24px;
+    line-height:1.5;
+  }
+  .terms a { color:#2874f0; text-decoration:none; }
+
+  .otp-btn {
+    margin-top:24px;
+    background:#fb641b;
+    color:#fff;
+    border:none;
+    padding:14px 0;
+    font-size:16px;
+    font-weight:600;
+    border-radius:2px;
+    cursor:pointer;
+    box-shadow:0 2px 4px rgba(0,0,0,.2);
+  }
+  .otp-btn:hover { background:#f2600f; }
+
+  .create-account {
+    margin-top:auto;
+    padding-top:60px;
+    text-align:center;
+  }
+  .create-account a {
+    color:#2874f0;
+    font-weight:600;
+    font-size:14px;
+    text-decoration:none;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .footer {
+    background:#172337;
+    color:#fff;
+    padding:40px 60px;
+    display:flex;
+    gap:80px;
+    font-size:13px;
+    flex-wrap:wrap;
+  }
+  .footer h4 {
+    color:#878787;
+    font-weight:400;
+    font-size:12px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    letter-spacing:.5px;
+  }
+  .footer a, .footer p {
+    color:#fff;
+    text-decoration:none;
+    display:block;
+    margin-bottom:14px;
+    line-height:1.4;
+  }
+  .footer .address-col p { margin-bottom:0; }
+  .footer .social { display:flex; gap:14px; margin-top:14px; }
+  .footer .social a {
+    width:26px; height:26px;
+    border:1px solid #3e4a63;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-block">
+      <span class="brand">Flipkart</span>
+      <span class="tagline">Explore <span class="plus">Plus</span> ✦</span>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search for products, brands and more">
+      <button>🔍</button>
+    </div>
+
+    <div class="nav-right">
+      <button class="login-btn">Login</button>
+      <a class="nav-link" href="#">Become a Seller</a>
+      <a class="nav-link" href="#">More ▾</a>
+      <a class="nav-link cart-link" href="#">🛒 Cart</a>
+    </div>
+  </header>
+
+  <!-- CATEGORY BAR -->
+  <nav class="category-bar">
+    <a href="#">Electronics <span class="caret">▾</span></a>
+    <a href="#">TVs &amp; Appliances <span class="caret">▾</span></a>
+    <a href="#">Men <span class="caret">▾</span></a>
+    <a href="#">Women <span class="caret">▾</span></a>
+    <a href="#">Baby &amp; Kids <span class="caret">▾</span></a>
+    <a href="#">Home &amp; Furniture <span class="caret">▾</span></a>
+    <a href="#">Sports, Books &amp; More <span class="caret">▾</span></a>
+    <a href="#">Flights</a>
+    <a href="#">Offer Zone</a>
+  </nav>
+
+  <!-- LOGIN CARD -->
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-left">
+        <h2>Login</h2>
+        <p>Get access to your Orders, Wishlist and Recommendations</p>
+
+        <svg class="login-illustration" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="205" cy="55" r="14" fill="#ffe500"/>
+          <path d="M150 70 q20 -22 45 -6 q18 -14 32 4 q14 -4 20 12 h-100 z" fill="#5b93f5" opacity="0.6"/>
+          <rect x="60" y="150" width="34" height="45" rx="3" fill="#ff6161"/>
+          <path d="M64 168 l10 -8 l10 8 v10 h-20z" fill="#fff" opacity="0.85"/>
+          <rect x="200" y="150" width="34" height="45" rx="3" fill="#ffc93c"/>
+          <rect x="100" y="110" width="110" height="80" rx="6" fill="#eef1f8"/>
+          <rect x="108" y="118" width="94" height="56" rx="2" fill="#3a3a3a"/>
+          <circle cx="155" cy="140" r="12" fill="#c7cbd1"/>
+          <path d="M138 165 q17 -16 34 0 z" fill="#c7cbd1"/>
+          <rect x="140" y="190" width="30" height="8" rx="2" fill="#d7dae0"/>
+        </svg>
+      </div>
+
+      <div class="login-right">
+        
+        <form action="{% url 'otp_send' %}" method="POST">
+
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="email_or_mobile"
+                placeholder="Enter Email/Mobile number"
+                required
+            >
+
+            <p class="terms">
+                By continuing, you agree to the
+                <a href="#">Terms of Use</a> and
+                <a href="#">Privacy Policy</a>.
+            </p>
+
+            <button type="submit" class="otp-btn">
+                Request OTP
+            </button>
+
+            <div class="create-account">
+                <a href="#">New to Flipkart? Create an account</a>
+            </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <h4>About</h4>
+      <a href="#">Contact Us</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+      <a href="#">Flipkart Stories</a>
+      <a href="#">Press</a>
+      <a href="#">Corporate Information</a>
+    </div>
+    <div>
+      <h4>Group Companies</h4>
+      <a href="#">Myntra</a>
+      <a href="#">Cleartrip</a>
+      <a href="#">Shopsy</a>
+    </div>
+    <div>
+      <h4>Help</h4>
+      <a href="#">Payments</a>
+      <a href="#">Shipping</a>
+      <a href="#">Cancellation &amp; Returns</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div>
+      <h4>Consumer Policy</h4>
+      <a href="#">Cancellation &amp; Returns</a>
+      <a href="#">Terms Of Use</a>
+      <a href="#">Security</a>
+      <a href="#">Privacy</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Grievance Redressal</a>
+      <a href="#">EPR Compliance</a>
+      <a href="#">FSSAI Food Safety Connect App</a>
+    </div>
+    <div class="address-col">
+      <h4>Mail Us:</h4>
+      <p>Flipkart Internet Private Limited,</p>
+      <p>Buildings Alyssa, Begonia &amp;</p>
+      <p>Clove Embassy Tech Village,</p>
+      <p>Outer Ring Road, Devarabeesanahalli Village,</p>
+      <p>Bengaluru, 560103,</p>
+      <p>Karnataka, India</p>
+      <div class="social">
+        <a href="#">f</a>
+        <a href="#">x</a>
+        <a href="#">▶</a>
+        <a href="#">◎</a>
+      </div>
+    </div>
+    <div class="address-col">
+      <h4>Registered Office Address:</h4>
+      <p>Flipkart Internet Private Limited,</p>
+      <p>Buildings Alyssa, Begonia &amp;</p>
+      <p>Clove Embassy Tech Village,</p>
+      <p>Outer Ring Road, Devarabeesanahalli Village,</p>
+      <p>Bengaluru, 560103,</p>
+      <p>Karnataka, India</p>
+      <p>CIN : U51109KA2012PTC066107</p>
+      <p>Telephone: <a style="display:inline;color:#2874f0" href="#">044-45614700</a> / <a style="display:inline;color:#2874f0" href="#">044-67415800</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>

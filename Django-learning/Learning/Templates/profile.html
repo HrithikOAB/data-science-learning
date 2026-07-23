@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+
+    <h1>User Profile</h1>
+
+    <hr>
+
+    <h3>Personal Information</h3>
+
+    <p><strong>Full Name:</strong> {{ user.full_name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Mobile Number:</strong> {{ user.mobile }}</p>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+
+    <hr>
+
+    <h3>Account Details</h3>
+
+    <p><strong>Account Status:</strong> Active</p>
+    <p><strong>Member Since:</strong> {{ user.date_joined }}</p>
+
+    <hr>
+
+    <h3>Actions</h3>
+
+    <p>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+    </p>
+
+    <p>
+        <a href="{% url 'change_password' %}">Change Password</a>
+    </p>
+
+    <p>
+        <a href="{% url 'logout' %}">Logout</a>
+    </p>
+
+</body>
+</html>
