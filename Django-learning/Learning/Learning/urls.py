@@ -19,5 +19,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/',include('Main.urls')),
+    path('api/', include('Main.urls')),
+
+    # DRF tutorial apps — each style lives at its own prefix so students
+    # can compare them side-by-side.
+    path('api/fbv/',      include('api_fbv.urls')),      # function-based views
+    path('api/apiview/',  include('api_apiview.urls')),  # class-based APIView
+    path('api/generics/', include('api_generics.urls')), # generic views
+    path('api/viewset/',  include('api_viewset.urls')),  # ModelViewSet + Router
 ]

@@ -39,6 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Main',
+    "rest_framework",
+    # ---- DRF tutorial apps (4 styles, side-by-side) ----
+    "api_fbv",       # Style 1: function-based views with @api_view
+    "api_apiview",   # Style 2: class-based APIView
+    "api_generics",  # Style 3: generic class-based views
+    "api_viewset",   # Style 4: ModelViewSet + DefaultRouter
 ]
 
 MIDDLEWARE = [
@@ -118,3 +124,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.BasicAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}

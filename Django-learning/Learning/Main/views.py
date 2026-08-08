@@ -25,6 +25,8 @@ def otp_send(request):
 def otp_verify(request):
     user_otp = request.POST.get('otp')
     number = request.POST.get('user_number')
+
+    
     if Person.objects.filter(number=number,otp=user_otp).exists():
          return redirect('profile')
     else:
