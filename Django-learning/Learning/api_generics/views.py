@@ -29,3 +29,5 @@ class MovieDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
     permission_classes = [AllowAny]
+
+    

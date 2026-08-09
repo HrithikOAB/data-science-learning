@@ -20,4 +20,5 @@ class CreateStudentSerializer(serializers.ModelSerializer):
         if Student.objects.filter(name=validated_data['name']).exists():
             raise serializers.ValidationError("A student with this name already exists.")
 
+    
         return super().create(validated_data)

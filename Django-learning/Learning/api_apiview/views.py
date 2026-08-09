@@ -10,7 +10,6 @@ from .serializers import StudentSerializer, CreateStudentSerializer
 
 
 class StudentListCreate(APIView):
-    """GET → list all students, POST → create a new student."""
     permission_classes = [AllowAny]
 
     def get(self, request):
@@ -18,45 +17,34 @@ class StudentListCreate(APIView):
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
 
-    def post(self, request):
-        serializer = CreateStudentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    
 
 class StudentDetail(APIView):
-    """GET one, PUT full-update, PATCH partial-update, DELETE."""
     permission_classes = [AllowAny]
 
-    def get_object(self, pk):
-        # Small helper so we don't repeat get_object_or_404 in every method.
-        return get_object_or_404(Student, pk=pk)
-
-    def get(self, request, pk):
-        student = self.get_object(pk)
+    def get(self, request, roll_no):
+        student = get_object_or_404(Student, roll_no=roll_no)
         serializer = StudentSerializer(student)
         return Response(serializer.data)
 
-    def put(self, request, pk):
-        student = self.get_object(pk)
-        serializer = StudentSerializer(student, data=request.data)
+    def put(self, request, roll_no):
+        student = get_object_or_404(Student, roll_no=roll_no)
+        serializer = CreateStudentSerializer(student, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def patch(self, request, pk):
-        student = self.get_object(pk)
-        serializer = StudentSerializer(student, data=request.data, partial=True)
+    def patch(self, request, roll_no):
+        student = get_object_or_404(Student, roll_no=roll_no)
+        serializer = CreateStudentSerializer(student, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        student = self.get_object(pk)
+    def delete(self, request, roll_no):
+        student = get_object_or_404(Student, roll_no=roll_no)
         student.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -70,7 +58,10 @@ class StudentDetail(APIView):
 
 
 
-# # unsecured api
+
+# # unsecured api 
+# @api_view(["GET"])
+# @permission_classes([AllowAny])
 # def student_list(request):
 #     students = Student.objects.filter(marks__gte=80)
 #     serializer = StudentSerializer(students, many=True)
