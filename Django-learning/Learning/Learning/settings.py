@@ -41,10 +41,11 @@ INSTALLED_APPS = [
     'Main',
     "rest_framework",
     # ---- DRF tutorial apps (4 styles, side-by-side) ----
-    "api_fbv",       # Style 1: function-based views with @api_view
-    "api_apiview",   # Style 2: class-based APIView
-    "api_generics",  # Style 3: generic class-based views
-    "api_viewset",   # Style 4: ModelViewSet + DefaultRouter
+#     "api_fbv",       # Style 1: function-based views with @api_view
+#     "api_apiview",   # Style 2: class-based APIView
+#     "api_generics",  # Style 3: generic class-based views
+#     "api_viewset",   # Style 4: ModelViewSet + DefaultRouter
+# ]
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,7 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.IsAuthenticated",
     ],
 }
+
+
+AUTH_USER_MODEL = "Main.Person"
+

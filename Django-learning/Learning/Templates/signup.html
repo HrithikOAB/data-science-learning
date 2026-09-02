@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,14 +289,26 @@
 
       <div class="login-right">
         
-        <form action="{% url 'login' %}" method="POST">
+        <form action="{% url 'signup' %}" method="POST">
 
             {% csrf_token %}
 
             <input
                 type="text"
+                name="name"
+                placeholder="Enter Name"
+                required
+            >
+            <input
+                type="email"
                 name="email"
                 placeholder="Enter Email"
+                required
+            >
+            <input
+                type="text"
+                name="mobile"
+                placeholder="Enter Mobile Number"
                 required
             >
             <input

@@ -2,50 +2,72 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .models import Person
 import random
+from django.contrib.auth import authenticate, login, logout
+
 # Create your views here.
+
+
+
 def login_page(request):
-    return render(request,'login.html')
+    if request.user.is_authenticated:
+        return redirect('profile')
 
-
-
-def otp_send(request):
-    number = request.POST.get('email_or_mobile')
-    otp = random.randint(0000,9999)
-    if Person.objects.filter(number=number).exists():
-        person_info = Person.objects.get(number=number)
-        person_info.otp = otp
-        person_info.save()
-
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        print(email,password)
+        user = authenticate(request, username=email, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            return render(request, 'login.html', {'error': 'Invalid credentials'})
     else:
-        Person.objects.create(number=number,otp=otp).save()        
-    return render(request,'otp-verify.html',{'user_number':number,'message':'Enter your otp'})
+        return render(request,'login.html')
 
 
+def signup_page(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
 
-def otp_verify(request):
-    user_otp = request.POST.get('otp')
-    number = request.POST.get('user_number')
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        mobile = request.POST.get('mobile')
+        password = request.POST.get('password')
 
-    
-    if Person.objects.filter(number=number,otp=user_otp).exists():
-         return redirect('profile')
+        user = Person.objects.create(name=name, email=email, number=mobile,username=email)
+
+        user.set_password(password)
+        user.save()
+        return redirect('login')
     else:
-        return HttpResponse('Wrong OTP')
+        return render(request,'signup.html')
 
 
-def resend_otp(request):
-    number = request.POST.get('user_number')
-    otp = random.randint(0000,9999)
-    if Person.objects.filter(number=number).exists():
-            person_info = Person.objects.get(number=number)
-            person_info.otp = otp
-            person_info.save()
-    
-    else:
-            Person.objects.create(number=number,otp=otp).save()  
-    return render(request,'otp-verify.html')
 
 
 def profile_page(request):
-    
-    return render(request,'profile.html')
+    if request.user.is_authenticated:
+        user = request.user
+        return render(request,'profile.html',{'user':user})
+    else:
+        return redirect('login')
+
+
+
+
+def edit_profile(request):
+    if request.method == 'POST':
+        user = request.user
+        user.name = request.POST.get('name')
+        user.email = request.POST.get('email')
+        user.save()
+        return redirect('profile')
+    return render(request,'edit-profile.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
