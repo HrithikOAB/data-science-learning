@@ -20,6 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('Main.urls')),
+    path('api-token-auth/', include('tokenAuth.urls')),  
 
     # DRF tutorial apps — each style lives at its own prefix so students
     # can compare them side-by-side.

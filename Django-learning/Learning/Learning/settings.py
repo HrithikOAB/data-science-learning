@@ -40,11 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Main',
     "rest_framework",
+    "rest_framework.authtoken",
     # ---- DRF tutorial apps (4 styles, side-by-side) ----
 #     "api_fbv",       # Style 1: function-based views with @api_view
 #     "api_apiview",   # Style 2: class-based APIView
 #     "api_generics",  # Style 3: generic class-based views
 #     "api_viewset",   # Style 4: ModelViewSet + DefaultRouter
+
+    "tokenAuth",      # Style 5: Token Authentication
 # ]
 ]
 
@@ -132,6 +135,7 @@ STATIC_URL = 'static/'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
