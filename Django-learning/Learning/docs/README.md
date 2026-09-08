@@ -9,6 +9,12 @@ Read them in this order:
 4. **[04-api-style-3-generic-views.md](04-api-style-3-generic-views.md)** — App `api_generics` (DRF does the boring stuff for us)
 5. **[05-api-style-4-viewsets-router.md](05-api-style-4-viewsets-router.md)** — App `api_viewset` (the shortest way)
 
+## Authentication (how users log in)
+
+6. **[06-what-is-authentication.md](06-what-is-authentication.md)** — What is authentication and its types? Start here.
+7. **[07-session-auth-django-templates.md](07-session-auth-django-templates.md)** — App `Main` (session/cookie login with HTML pages)
+8. **[08-token-auth-drf-fbv.md](08-token-auth-drf-fbv.md)** — App `tokenAuth` (token login for APIs, using `@api_view`)
+
 ## What are we building in each app?
 
 **The exact same thing four times.** A tiny CRUD API. Different code, same result.
